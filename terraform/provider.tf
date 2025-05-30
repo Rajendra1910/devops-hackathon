@@ -1,4 +1,5 @@
 provider "aws" {
 region = "${var.AWS_REGION}"
-profile = "${var.AWS_PROFILE}" 
+Access key = "${var.MY Access key}" 
+secret key = "${var.MY Secret key}"
 }
