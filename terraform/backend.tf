@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "your-terraform-backend-bucket"
+    bucket         = "group16-hu3"
     key            = "eks/terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "terraform-locks"
