@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    paths:
+      - 'microservices/'
+    branches: [main]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push Docker image (Patient)
+        run: |
+          docker build -t patient-service ./microservices/patient-service
+          docker tag patient-service:latest ${{ secrets.ECR_REPO }}/patient-service:latest
+          docker push ${{ secrets.ECR_REPO }}/patient-service:latest
+
+      # Add deploy to EKS here using kubectl or Helm
